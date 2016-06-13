@@ -9,6 +9,7 @@
 import SpriteKit
 
 var movingGround : GKMovingGround!
+var hero: GKHero!
 
 class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
@@ -22,6 +23,11 @@ class GameScene: SKScene {
         
         //Adding the ground
         addChild(movingGround)
+        
+        //Creating the hero
+        hero = GKHero()
+        hero.position = CGPoint(x: 70, y: movingGround.position.y + movingGround.frame.size.height/2 + hero.frame.size.height/2)
+        addChild(hero)
         
         
     }

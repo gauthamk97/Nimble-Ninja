@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC1D70A41D0E7E7A00C18789 /* GKHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D70A31D0E7E7A00C18789 /* GKHero.swift */; };
 		AC5293961D0DDBBF0070D9B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5293951D0DDBBF0070D9B9 /* AppDelegate.swift */; };
 		AC5293981D0DDBBF0070D9B9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AC5293971D0DDBBF0070D9B9 /* GameScene.sks */; };
 		AC52939A1D0DDBBF0070D9B9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5293991D0DDBBF0070D9B9 /* GameScene.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC1D70A31D0E7E7A00C18789 /* GKHero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKHero.swift; sourceTree = "<group>"; };
 		AC5293921D0DDBBF0070D9B9 /* Nimble Ninja.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nimble Ninja.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5293951D0DDBBF0070D9B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AC5293971D0DDBBF0070D9B9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				AC5293971D0DDBBF0070D9B9 /* GameScene.sks */,
 				AC5293991D0DDBBF0070D9B9 /* GameScene.swift */,
 				AC5293AB1D0DE4970070D9B9 /* GKMovingGround.swift */,
+				AC1D70A31D0E7E7A00C18789 /* GKHero.swift */,
 				AC52939D1D0DDBBF0070D9B9 /* Main.storyboard */,
 				AC52939B1D0DDBBF0070D9B9 /* GameViewController.swift */,
 				AC5293A01D0DDBBF0070D9B9 /* Assets.xcassets */,
@@ -149,6 +152,7 @@
 				AC52939A1D0DDBBF0070D9B9 /* GameScene.swift in Sources */,
 				AC52939C1D0DDBBF0070D9B9 /* GameViewController.swift in Sources */,
 				AC5293961D0DDBBF0070D9B9 /* AppDelegate.swift in Sources */,
+				AC1D70A41D0E7E7A00C18789 /* GKHero.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +304,7 @@
 				AC5293AA1D0DDBBF0070D9B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
