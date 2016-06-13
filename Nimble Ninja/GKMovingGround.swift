@@ -9,10 +9,6 @@
 import Foundation
 import SpriteKit
 
-let NUMBER_OF_SEGMENTS = 20
-let COLOR_ONE: UIColor = UIColor(red: 88/255, green: 148/255, blue: 87/255, alpha: 1)
-let COLOR_TWO: UIColor = UIColor(red: 120/255, green: 195/255, blue: 118/255, alpha: 1)
-
 class GKMovingGround: SKSpriteNode {
     
     init(size: CGSize) {

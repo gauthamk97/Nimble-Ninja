@@ -22,6 +22,8 @@ class GKHero: SKSpriteNode {
     var leftFoot: SKSpriteNode!
     var rightFoot: SKSpriteNode!
     
+    var isUpsideDown: Bool = false
+    
     init() {
         super.init(texture: nil, color: UIColor.clearColor(), size: CGSizeMake(32, 44))
         
@@ -80,6 +82,59 @@ class GKHero: SKSpriteNode {
     
     }
     
+    func breathe() {
+        let breathOut = SKAction.moveByX(0, y: -2, duration: 0.75)
+        let breathIn = SKAction.moveByX(0, y: 2, duration: 0.75)
+        let breath = SKAction.sequence([breathOut,breathIn])
+        
+        body.runAction(SKAction.repeatActionForever(breath))
+    }
+    
+    func flip() {
+        isUpsideDown = !isUpsideDown
+        
+        var scale: CGFloat!
+        
+        if isUpsideDown {
+            scale = -1.0
+        }
+        else {
+            scale = +1.0
+        }
+        
+        let translate = SKAction.moveByX(0, y: scale * (size.height + kGKMovingGround) , duration: 0.1)
+        let flip = SKAction.scaleYTo(scale, duration: 0.1)
+        
+        runAction(translate)
+        runAction(flip)
+        
+    }
+    
+    func startRunning() {
+        let rotateBack = SKAction.rotateByAngle(-CGFloat(M_PI)/2, duration: 0.1)
+        arm.runAction(rotateBack)
+        
+        performRunningCycle()
+        
+    }
+    
+    func performRunningCycle() {
+        
+        let up = SKAction.moveByX(0, y: 2, duration: 0.05)
+        let down = SKAction.moveByX(0, y: -2, duration: 0.05)
+        
+        leftFoot.runAction(up) { 
+            self.leftFoot.runAction(down)
+            self.rightFoot.runAction(up, completion: { 
+                self.rightFoot.runAction(down)
+                self.performRunningCycle()
+            })
+        }
+    }
+    
+    func stopBodyActions() {
+        body.removeAllActions()
+    }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
