@@ -17,6 +17,10 @@
 		AC5293A41D0DDBBF0070D9B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC5293A21D0DDBBF0070D9B9 /* LaunchScreen.storyboard */; };
 		AC5293AC1D0DE4970070D9B9 /* GKMovingGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5293AB1D0DE4970070D9B9 /* GKMovingGround.swift */; };
 		AC5F2F9F1D0EE45C00033992 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5F2F9E1D0EE45C00033992 /* Constants.swift */; };
+		ACF38B071D118D1600DCF26A /* GKCloudGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF38B061D118D1600DCF26A /* GKCloudGenerator.swift */; };
+		ACF38B091D118D9200DCF26A /* GKCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF38B081D118D9200DCF26A /* GKCloud.swift */; };
+		ACF38B0D1D119C6600DCF26A /* GKWallGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF38B0C1D119C6600DCF26A /* GKWallGenerator.swift */; };
+		ACF38B111D119C7D00DCF26A /* GKWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF38B101D119C7D00DCF26A /* GKWall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		AC5293A51D0DDBBF0070D9B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC5293AB1D0DE4970070D9B9 /* GKMovingGround.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKMovingGround.swift; sourceTree = "<group>"; };
 		AC5F2F9E1D0EE45C00033992 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ACF38B061D118D1600DCF26A /* GKCloudGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKCloudGenerator.swift; sourceTree = "<group>"; };
+		ACF38B081D118D9200DCF26A /* GKCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKCloud.swift; sourceTree = "<group>"; };
+		ACF38B0C1D119C6600DCF26A /* GKWallGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKWallGenerator.swift; sourceTree = "<group>"; };
+		ACF38B101D119C7D00DCF26A /* GKWall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GKWall.swift; path = ../GKWall.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +75,7 @@
 				AC5293951D0DDBBF0070D9B9 /* AppDelegate.swift */,
 				AC5293971D0DDBBF0070D9B9 /* GameScene.sks */,
 				AC5293991D0DDBBF0070D9B9 /* GameScene.swift */,
-				AC5293AB1D0DE4970070D9B9 /* GKMovingGround.swift */,
-				AC1D70A31D0E7E7A00C18789 /* GKHero.swift */,
+				ACF38B0A1D11931100DCF26A /* Additional Classes */,
 				AC5F2F9E1D0EE45C00033992 /* Constants.swift */,
 				AC52939D1D0DDBBF0070D9B9 /* Main.storyboard */,
 				AC52939B1D0DDBBF0070D9B9 /* GameViewController.swift */,
@@ -77,6 +84,35 @@
 				AC5293A51D0DDBBF0070D9B9 /* Info.plist */,
 			);
 			path = "Nimble Ninja";
+			sourceTree = "<group>";
+		};
+		ACF38B0A1D11931100DCF26A /* Additional Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AC5293AB1D0DE4970070D9B9 /* GKMovingGround.swift */,
+				AC1D70A31D0E7E7A00C18789 /* GKHero.swift */,
+				ACF38B121D119C8400DCF26A /* Wall Classes */,
+				ACF38B0B1D11932900DCF26A /* Cloud Classes */,
+			);
+			name = "Additional Classes";
+			sourceTree = "<group>";
+		};
+		ACF38B0B1D11932900DCF26A /* Cloud Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ACF38B081D118D9200DCF26A /* GKCloud.swift */,
+				ACF38B061D118D1600DCF26A /* GKCloudGenerator.swift */,
+			);
+			name = "Cloud Classes";
+			sourceTree = "<group>";
+		};
+		ACF38B121D119C8400DCF26A /* Wall Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ACF38B101D119C7D00DCF26A /* GKWall.swift */,
+				ACF38B0C1D119C6600DCF26A /* GKWallGenerator.swift */,
+			);
+			name = "Wall Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,9 +189,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC5293AC1D0DE4970070D9B9 /* GKMovingGround.swift in Sources */,
+				ACF38B091D118D9200DCF26A /* GKCloud.swift in Sources */,
 				AC52939A1D0DDBBF0070D9B9 /* GameScene.swift in Sources */,
+				ACF38B111D119C7D00DCF26A /* GKWall.swift in Sources */,
 				AC52939C1D0DDBBF0070D9B9 /* GameViewController.swift in Sources */,
+				ACF38B0D1D119C6600DCF26A /* GKWallGenerator.swift in Sources */,
 				AC5293961D0DDBBF0070D9B9 /* AppDelegate.swift in Sources */,
+				ACF38B071D118D1600DCF26A /* GKCloudGenerator.swift in Sources */,
 				AC1D70A41D0E7E7A00C18789 /* GKHero.swift in Sources */,
 				AC5F2F9F1D0EE45C00033992 /* Constants.swift in Sources */,
 			);

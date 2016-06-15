@@ -37,8 +37,10 @@ class GKMovingGround: SKSpriteNode {
     }
     
     func start() {
+        
+        let adjustedDuration: NSTimeInterval = NSTimeInterval(frame.size.width/2/kDefaultXtoMovePerSecond)
         //Moves ground left by one whole screen
-        let moveLeft = SKAction.moveByX(-frame.size.width/2, y: 0, duration: 1.0)
+        let moveLeft = SKAction.moveByX(-frame.size.width/2, y: 0, duration: adjustedDuration)
         
         //Teleports ground back to initial position
         let resetPosition = SKAction.moveToX(0, duration: 0)
