@@ -52,6 +52,10 @@ class GKMovingGround: SKSpriteNode {
         runAction(SKAction.repeatActionForever(mySequence))
     }
     
+    func stop() {
+        removeAllActions()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

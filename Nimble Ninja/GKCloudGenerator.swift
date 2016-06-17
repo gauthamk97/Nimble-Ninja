@@ -12,6 +12,7 @@ import SpriteKit
 class GKCloudGenerator: SKSpriteNode {
     
     var generationTimer: NSTimer!
+    var allClouds = [GKCloud]()
     
     func populate(num: Int) {
         for _ in 1 ... num {
@@ -20,6 +21,7 @@ class GKCloudGenerator: SKSpriteNode {
             let CloudYPosition = CGFloat(arc4random_uniform(UInt32(size.height - CLOUD_HEIGHT))) - (size.height/2 - CLOUD_HEIGHT/2)
             Cloud.position = CGPointMake(CloudXPosition, CloudYPosition)
             addChild(Cloud)
+            allClouds.append(Cloud)
         }
     }
     
@@ -30,12 +32,25 @@ class GKCloudGenerator: SKSpriteNode {
         let newCloud = GKCloud(size: CGSizeMake(CLOUD_WIDTH, CLOUD_HEIGHT))
         newCloud.position = CGPointMake(x, y)
         addChild(newCloud)
+        allClouds.append(newCloud)
         
     }
     
     func startGeneratingMoreClouds(spawnTime: NSTimeInterval) {
         
         generationTimer = NSTimer.scheduledTimerWithTimeInterval(spawnTime, target: self, selector: #selector(GKCloudGenerator.generateClouds), userInfo: nil, repeats: true)
+    }
+    
+    func onCollision() {
+        stopGeneratingMoreClouds()
+        
+        for cloud in allClouds {
+            cloud.stopMoving()
+        }
+    }
+    
+    func stopGeneratingMoreClouds() {
+        generationTimer.invalidate()
     }
     
 }

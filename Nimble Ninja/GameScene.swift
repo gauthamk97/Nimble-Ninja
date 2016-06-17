@@ -14,8 +14,9 @@ var cloudGenerator: GKCloudGenerator!
 var wallGenerator: GKWallGenerator!
 
 var firstClick: Bool = true
+var isGameOver: Bool = false
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         //Assigning sky background color
@@ -47,18 +48,26 @@ class GameScene: SKScene {
         //Adding Start Label
         let tapToStartLabel = SKLabelNode(text: "Tap to Start!")
         tapToStartLabel.name = "tapToStartLabel"
-        tapToStartLabel.position = CGPointMake(view.center.x, view.center.y + 50)
+        tapToStartLabel.position = CGPointMake(view.center.x, view.center.y + 75)
         tapToStartLabel.fontColor = UIColor.blackColor()
         tapToStartLabel.fontSize = 22
         tapToStartLabel.fontName = "Helvetica"
         addChild(tapToStartLabel)
+        
+        //Creating the physics world
+        physicsWorld.contactDelegate = self
+        
         
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
-        if firstClick {
+        if isGameOver {
+            restart()
+        }
+            
+        else if firstClick {
             hero.stopBodyActions()
             hero.startRunning()
             movingGround.start()
@@ -76,5 +85,35 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+    }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        isGameOver = true
+        firstClick = true
+        
+        print("Contact occured")
+        
+        //Stopping everything
+        wallGenerator.onCollision()
+        cloudGenerator.onCollision()
+        movingGround.stop()
+        hero.stopAllActions()
+        
+        //Creating the GameOver Label
+        let gameOverLabel = SKLabelNode(text: "Game Over")
+        gameOverLabel.name = "gameOverLabel"
+        gameOverLabel.position = CGPointMake(view!.center.x, view!.center.y + 75)
+        gameOverLabel.fontColor = UIColor.blackColor()
+        gameOverLabel.fontSize = 22
+        gameOverLabel.fontName = "Helvetica"
+        addChild(gameOverLabel)
+    }
+    
+    func restart() {
+        let newScene = GameScene(size: view!.bounds.size)
+        newScene.scaleMode = SKSceneScaleMode.AspectFill
+        view!.presentScene(newScene)
+        isGameOver = false
     }
 }

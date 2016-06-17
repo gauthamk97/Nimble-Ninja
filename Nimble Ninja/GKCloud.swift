@@ -25,6 +25,10 @@ class GKCloud: SKShapeNode {
         runAction(SKAction.repeatActionForever(moveLeft))
     }
     
+    func stopMoving() {
+        removeAllActions()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -79,6 +79,9 @@ class GKHero: SKSpriteNode {
         rightFoot = leftFoot.copy() as! SKSpriteNode
         rightFoot.position.x = 8
         addChild(rightFoot)
+        
+        //Creating the physics body
+        loadPhysicsBodyWithSize(CGSizeMake(32, 44))
     
     }
     
@@ -134,6 +137,20 @@ class GKHero: SKSpriteNode {
     
     func stopBodyActions() {
         body.removeAllActions()
+    }
+    
+    func stopAllActions() {
+        let rotateForward = SKAction.rotateByAngle(CGFloat(M_PI)/2, duration: 0.1)
+        arm.runAction(rotateForward)
+        leftFoot.removeAllActions()
+        rightFoot.removeAllActions()
+    }
+    
+    func loadPhysicsBodyWithSize(size: CGSize) {
+        physicsBody = SKPhysicsBody(rectangleOfSize: size)
+        physicsBody?.categoryBitMask = heroCategory
+        physicsBody?.contactTestBitMask = wallCategory
+        physicsBody?.affectedByGravity = false
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
