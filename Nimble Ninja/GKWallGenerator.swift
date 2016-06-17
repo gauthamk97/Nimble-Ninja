@@ -29,6 +29,7 @@ class GKWallGenerator: SKSpriteNode {
         addChild(newWall)
         allWalls.append(newWall)
         
+        
     }
     
     func startGeneratingMoreWalls(spawnTime: NSTimeInterval) {

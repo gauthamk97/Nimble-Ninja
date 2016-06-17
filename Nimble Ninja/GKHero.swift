@@ -113,6 +113,14 @@ class GKHero: SKSpriteNode {
         
     }
     
+    func fall() {
+        physicsBody?.affectedByGravity = true
+        physicsBody?.applyImpulse(CGVectorMake(-5, 30))
+        
+        let rotateBack = SKAction.rotateByAngle(CGFloat(M_PI), duration: 0.8)
+        runAction(rotateBack)
+    }
+    
     func startRunning() {
         let rotateBack = SKAction.rotateByAngle(-CGFloat(M_PI)/2, duration: 0.1)
         arm.runAction(rotateBack)
@@ -144,6 +152,8 @@ class GKHero: SKSpriteNode {
         arm.runAction(rotateForward)
         leftFoot.removeAllActions()
         rightFoot.removeAllActions()
+        leftFoot.position = CGPointMake(-6, -size.height/2 + leftFoot.frame.size.height/2)
+        rightFoot.position = CGPointMake(8, -size.height/2 + rightFoot.frame.size.height/2)
     }
     
     func loadPhysicsBodyWithSize(size: CGSize) {

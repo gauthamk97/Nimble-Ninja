@@ -12,13 +12,22 @@ var movingGround : GKMovingGround!
 var hero: GKHero!
 var cloudGenerator: GKCloudGenerator!
 var wallGenerator: GKWallGenerator!
+var pointsLabel: GKPointsLabel!
+var highscoreLabel: GKPointsLabel!
+
+let myDefaults = NSUserDefaults.standardUserDefaults()
 
 var firstClick: Bool = true
 var isGameOver: Bool = false
+var wallNumberForPoints: Int = 0
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        
+        //Clean slating
+        wallNumberForPoints = 0
+        
         //Assigning sky background color
         backgroundColor = UIColor(red: 159.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1)
         
@@ -53,6 +62,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tapToStartLabel.fontSize = 22
         tapToStartLabel.fontName = "Helvetica"
         addChild(tapToStartLabel)
+        tapToStartLabel.runAction(blinkAnimation())
+        
+        //Adding word 'point' and 'highscore'
+        let pointsWordLabel = SKLabelNode(text: "Points")
+        pointsWordLabel.position = CGPointMake(50, view.frame.size.height-40)
+        //pointsWordLabel.fontName = "San Fransisco"
+        pointsWordLabel.fontColor = UIColor.blackColor()
+        addChild(pointsWordLabel)
+        
+        let highscoreWordLabel = SKLabelNode(text: "High Score")
+        highscoreWordLabel.position = CGPointMake(view.frame.size.width-80, view.frame.size.height-40)
+        //highscoreWordLabel.fontName = "San Fransisco"
+        highscoreWordLabel.fontColor = UIColor.blackColor()
+        addChild(highscoreWordLabel)
+        
+        //Adding points and highscore label
+        pointsLabel = GKPointsLabel(num: 0)
+        pointsLabel.position = CGPointMake(0, -30)
+        pointsWordLabel.addChild(pointsLabel)
+        
+        highscoreLabel = GKPointsLabel(num: 0)
+        highscoreLabel.position = CGPointMake(0, -30)
+        highscoreLabel.number = myDefaults.integerForKey("highscore")
+        highscoreLabel.text = "\(highscoreLabel.number)"
+        highscoreWordLabel.addChild(highscoreLabel)
         
         //Creating the physics world
         physicsWorld.contactDelegate = self
@@ -71,7 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             hero.stopBodyActions()
             hero.startRunning()
             movingGround.start()
-            wallGenerator.startGeneratingMoreWalls(0.75)
+            wallGenerator.startGeneratingMoreWalls(kWallGenerationTime)
             let tapToStartLabel = childNodeWithName("tapToStartLabel")
             tapToStartLabel?.removeFromParent()
             firstClick = false
@@ -85,16 +119,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        if wallGenerator.allWalls.count > 0 {
+            
+            let firstWall = wallGenerator.allWalls[wallNumberForPoints]
+            
+            let wallLocation = wallGenerator.convertPoint(firstWall.position, toNode: self)
+            
+            if wallLocation.x < hero.position.x-32 {
+                pointsLabel.increment()
+                wallNumberForPoints += 1
+                
+                /*
+                if pointsLabel.number % 5 == 0 {
+                    kWallGenerationTime -= 0.2
+                    wallGenerator.stopGeneratingMoreWalls()
+                    wallGenerator.startGeneratingMoreWalls(kWallGenerationTime)
+                }*/
+            }
+        }
+        
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
         
         isGameOver = true
         firstClick = true
-        
+
         print("Contact occured")
         
         //Stopping everything
+        hero.fall()
         wallGenerator.onCollision()
         cloudGenerator.onCollision()
         movingGround.stop()
@@ -108,9 +163,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameOverLabel.fontSize = 22
         gameOverLabel.fontName = "Helvetica"
         addChild(gameOverLabel)
+        gameOverLabel.runAction(blinkAnimation())
+        
+        //Checking for highscore. Saving if necessary
+        if pointsLabel.number > highscoreLabel.number {
+            highscoreLabel.text = "\(pointsLabel.number)"
+            highscoreLabel.number = pointsLabel.number
+            myDefaults.setInteger(highscoreLabel.number, forKey: "highscore")
+        }
+    }
+    
+    func blinkAnimation() -> SKAction {
+        
+        let fadeOut = SKAction.fadeAlphaTo(0, duration: 0.6)
+        let fadeIn = SKAction.fadeAlphaTo(1, duration: 0.6)
+        
+        let blink = SKAction.repeatActionForever(SKAction.sequence([fadeOut,fadeIn]))
+        return blink
     }
     
     func restart() {
+        //Creating the new scene
         let newScene = GameScene(size: view!.bounds.size)
         newScene.scaleMode = SKSceneScaleMode.AspectFill
         view!.presentScene(newScene)
