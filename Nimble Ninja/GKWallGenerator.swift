@@ -11,7 +11,7 @@ import SpriteKit
 
 class GKWallGenerator: SKSpriteNode {
     
-    var generationTimer: NSTimer!
+    var generationTimer: NSTimer?
     var allWalls = [GKWall]()
     
     func generateWalls() {
@@ -46,7 +46,7 @@ class GKWallGenerator: SKSpriteNode {
     }
     
     func stopGeneratingMoreWalls() {
-        generationTimer.invalidate()
+        generationTimer!.invalidate()
     }
     
 }

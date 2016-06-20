@@ -43,7 +43,7 @@ class GKMovingGround: SKSpriteNode {
         let moveLeft = SKAction.moveByX(-frame.size.width/2, y: 0, duration: adjustedDuration)
         
         //Teleports ground back to initial position
-        let resetPosition = SKAction.moveToX(0, duration: 0)
+        let resetPosition = SKAction.moveByX(frame.size.width/2, y: 0, duration: 0)
         
         //Creates a sequence that combines above to actions
         let mySequence = SKAction.sequence([moveLeft,resetPosition])

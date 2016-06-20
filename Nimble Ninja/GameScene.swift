@@ -27,6 +27,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Clean slating
         wallNumberForPoints = 0
+        kWallGenerationTime = 0.75
+        LevelNumber = 0
+        kDefaultXtoMovePerSecond = 400
         
         //Assigning sky background color
         backgroundColor = UIColor(red: 159.0/255.0, green: 201.0/255.0, blue: 244.0/255.0, alpha: 1)
@@ -39,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cloudGenerator.startGeneratingMoreClouds(10)
         
         //Creating the ground
-        movingGround = GKMovingGround(size: CGSize(width: view.frame.width*2, height: kGKMovingGround))
+        movingGround = GKMovingGround(size: CGSize(width: view.frame.width*10, height: kGKMovingGround))
         movingGround.position = CGPoint(x: 0, y: view.center.y)
         addChild(movingGround)
         
@@ -120,6 +123,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
         
+        if CGRectGetMaxX(movingGround.frame) < CGRectGetMaxX((view?.frame)!) {
+            
+            let resetPosition = SKAction.moveByX(movingGround.frame.size.width/2, y: 0, duration: 0)
+            
+            movingGround.runAction(resetPosition)
+        }
+        
         if wallGenerator.allWalls.count > 0 {
             
             let firstWall = wallGenerator.allWalls[wallNumberForPoints]
@@ -130,12 +140,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 pointsLabel.increment()
                 wallNumberForPoints += 1
                 
-                /*
-                if pointsLabel.number % 5 == 0 {
-                    kWallGenerationTime -= 0.2
+                if pointsLabel.number % 5 == 0 && LevelNumber < 4 {
+                    LevelNumber += 1
+                    kWallGenerationTime = LevelTimes[LevelNumber]
+                    kDefaultXtoMovePerSecond += 50
+                    movingGround.stop()
+                    movingGround.start()
+                    
+                    wallGenerator.allWalls[pointsLabel.number+1].stopMoving()
+                    wallGenerator.allWalls[pointsLabel.number+1].startMoving()
+                    wallGenerator.allWalls[pointsLabel.number].stopMoving()
+                    wallGenerator.allWalls[pointsLabel.number].startMoving()
+                    
                     wallGenerator.stopGeneratingMoreWalls()
                     wallGenerator.startGeneratingMoreWalls(kWallGenerationTime)
-                }*/
+                
+                }
+                
             }
         }
         
